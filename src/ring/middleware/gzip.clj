@@ -7,6 +7,9 @@
                     PipedInputStream
                     PipedOutputStream)))
 
+(defn- close [^Closeable stream]
+  (.close stream))
+
 (defn piped-gzipped-input-stream [in]
   (let [pipe-in (PipedInputStream.)
         pipe-out (PipedOutputStream. pipe-in)]
@@ -16,22 +19,24 @@
           (doseq [string in] (io/copy (str string) out))
           (io/copy in out)))
       (when (instance? Closeable in)
-        (.close in)))
+        (close in)))
     pipe-in))
 
 (defn gzipped-response [resp]
   (-> resp
       (update-in [:headers]
                  #(-> %
-                      (assoc "Content-Encoding" "gzip")
-                      (dissoc "Content-Length")))
+                      (assoc "content-encoding" "gzip")
+                      (dissoc "content-length")))
       (update-in [:body] piped-gzipped-input-stream)))
+
+(def accepted-status #{200 202})
 
 (defn wrap-gzip [handler]
   (fn [req]
     (let [{:keys [body status] :as resp} (handler req)]
-      (if (and (= status 200)
-               (not (get-in resp [:headers "Content-Encoding"]))
+      (if (and (accepted-status status)
+               (not (get-in resp [:headers "content-encoding"]))
                (or
                 (and (string? body) (> (count body) 200))
                 (seq? body)
