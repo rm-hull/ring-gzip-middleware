@@ -27,7 +27,7 @@
       (update-in [:headers]
                  #(-> %
                       (assoc "content-encoding" "gzip")
-                      (dissoc "content-length")))
+                      (dissoc "content-length" "Content-Length")))
       (update-in [:body] piped-gzipped-input-stream)))
 
 (def accepted-status #{200 202})
