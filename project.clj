@@ -1,6 +1,6 @@
 (defproject rm-hull/ring-gzip-middleware "0.1.6"
   :description "Ring gzip encoding middleware"
-  :url "https://github.com/rm_hull/ring-gzip-middleware"
+  :url "https://github.com/rm-hull/ring-gzip-middleware"
   :license {:name "Distributed under an MIT-style license (see LICENSE for details)." }
   :dependencies [[org.clojure/clojure "1.5.1"]]
   :min-lein-version "2.2.0"
