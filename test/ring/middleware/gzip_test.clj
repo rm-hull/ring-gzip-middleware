@@ -22,6 +22,8 @@
 
 (def output (apply str (repeat 300 "a")))
 
+
+
 (def app (wrap-gzip (fn [req] {:status 200
                                :body output
                                :headers {}})))
@@ -53,6 +55,17 @@
     (is (= 200 (:status resp)))
     (is (= "gzip" (encoding resp)))
     (is (Arrays/equals (unzip (resp :body)) (.getBytes output)))))
+
+(deftest test-unicode-string-gzip
+  (let [unicode-output (str output "»" output)
+        app (wrap-gzip (fn [req] {:status 200
+                               :body (StringBufferInputStream. unicode-output)
+                               :headers {}}))
+        resp (app (accepting "gzip"))]
+    (is (= 200 (:status resp)))
+    (is (= "gzip" (encoding resp)))
+    (is (Arrays/equals (unzip (resp :body)) (.getBytes unicode-output)))))
+
 
 (deftest test-accepts
   (doseq [ctype ["gzip" "*" "gzip,deflate" "gzip,deflate,sdch"
