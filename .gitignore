@@ -6,3 +6,4 @@ target
 .AppleDouble
 .lein-failures
 .cake
+/.lein-repl-history
