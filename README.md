@@ -36,3 +36,7 @@ of `GZIPOutputStream` there.
 Copyright (C) 2010 Michael Stephens and other contributors.
 
 Distributed under an MIT-style license (see LICENSE for details).
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rm-hull/ring-gzip-middleware/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
