@@ -1,4 +1,4 @@
-(defproject rm-hull/ring-gzip-middleware "0.1.6"
+(defproject rm-hull/ring-gzip-middleware "0.1.7"
   :description "Ring gzip encoding middleware"
   :url "https://github.com/rm-hull/ring-gzip-middleware"
   :license {:name "Distributed under an MIT-style license (see LICENSE for details)." }
